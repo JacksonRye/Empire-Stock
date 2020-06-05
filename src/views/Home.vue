@@ -34,7 +34,10 @@ export default {
       db.collection("stock")
         .doc(id)
         .set(newItem)
-        .then(docRef => console.log("Document written: ", docRef.id))
+        .then(() => {
+          console.log("Document written: ", id);
+          this.items = [...this.items, newItem];
+        })
         .catch(err => console.error(err));
     },
     deleteItem(id) {
@@ -44,7 +47,7 @@ export default {
         .delete()
         .then(() => {
           console.log("Doc Deleted Successfully");
-          this.items = this.items.filter(item => item.id !== id)
+          this.items = this.items.filter(item => item.id !== id);
         })
         .catch(err => console.error("Doc deletion failed", err));
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <div class="item" :class="{ warn : item.quantity < 20 }">
     <span class="name">{{ item.name }}</span>
     <span class="quantity">{{ item.quantity }}</span>
     <button @click="editItem" class="accept edit">Edit</button>
@@ -64,7 +64,14 @@ export default {
     flex: 0.5;
   }
 
+  .name {
+    text-transform: capitalize;
+  }
   .edit {
     background: blue;
+  }
+
+  .warn {
+    background: orange;
   }
 </style>
