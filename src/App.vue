@@ -45,17 +45,39 @@ export default {
     color: #42b983;
   }
 
-  button {
+  button,
+  input {
     appearance: none;
     border: none;
     outline: none;
     background: none;
   }
 
-  input {
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
+  .delete,
+  .accept {
+    flex: 0.1;
+    padding: 5px;
+    margin: 0 5px;
+    font-weight: 600;
+  }
+
+  .delete {
+    background: red;
+    color: white;
+  }
+
+  .accept {
+    background: green;
+    color: white;
+  }
+
+  .delete:hover {
+    background: white;
+    color: red;
+  }
+
+  .accept:hover {
+    background: white;
+    color: green;
   }
 </style>

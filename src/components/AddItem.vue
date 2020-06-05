@@ -1,11 +1,9 @@
 <template>
   <div class="add-item">
-    <form>
-      <input type="text" placeholder="Drink Name" v-model="name" class="name" />
-      <input type="number" v-model.number="quantity" class="quantity" />
-      <button @click="addItem" class="add">Add</button>
-      <button @click="clearBox" class="cancel">X</button>
-    </form>
+    <input type="text" placeholder="Drink Name" v-model="name" class="name" />
+    <input type="number" v-model.number="quantity" class="quantity" />
+    <button @click="addItem" class="add">Add</button>
+    <button @click="clearBox" class="cancel">X</button>
   </div>
 </template>
 
@@ -34,28 +32,27 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
   .add-item {
     padding: 10px 5px;
     margin: 10px 5px;
     background: grey;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
   }
 
   .name,
   .quantity {
     background: white;
-    margin: 0 5px;
-    padding: 5px 0;
+    margin: 2px 5px;
+    padding: 12px 5px;
     flex: 0.7;
   }
 
   .cancel,
   .add {
-    margin: 5px;
-    padding: 5px 10px;
+    margin: 2px;
+    padding: 10px 10px;
     font-weight: 700;
   }
 

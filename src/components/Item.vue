@@ -2,20 +2,44 @@
   <div class="item">
     <span class="name">{{ item.name }}</span>
     <span class="quantity">{{ item.quantity }}</span>
-    <input class="amount" type="number" />
-    <button class="accept">OK</button>
-    <button class="delete">X</button>
+    <button @click="editItem" class="accept edit">Edit</button>
+    <button @click="deleteItem" class="delete">X</button>
+    <Modal v-if="isModalVisible" @close="closeModal">
+      <div slot="header">
+        <h1>Edit Item</h1>
+      </div>
+      <div slot="body">
+        <EditItem :item="item" />
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from "../components/layout/Modal.vue";
+import EditItem from "../components/EditItem.vue";
 export default {
   name: "Item",
   props: ["item"],
+  components: {
+    Modal,
+    EditItem
+  },
+  data() {
+    return {
+      isModalVisible: false
+    };
+  },
   methods: {
-      acceptChanges() {
-          
-      }
+    editItem() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    deleteItem() {
+      this.$emit("del-item", this.item.id);
+    }
   }
 };
 </script>
@@ -40,38 +64,7 @@ export default {
     flex: 0.5;
   }
 
-  .amount {
-    flex: 0.1;
-    padding: 5px 0;
-    margin: 0 5px;
-
+  .edit {
+    background: blue;
   }
-
-  .delete, .accept {
-      flex: 0.1;
-      padding: 5px;
-      margin: 0 5px;
-      font-weight: 600;
-  }
-
-  .delete {
-      background: red;
-      color: white;
-  }
-
-  .accept {
-      background: green;
-      color: white;
-  }
-
-  .delete:hover {
-      background: white;
-      color: red;
-  }
-
-  .accept:hover {
-      background: white;
-      color: green;
-  }
-
 </style>

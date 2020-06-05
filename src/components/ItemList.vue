@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="item in items" :key="item.id">
-            <Item :item="item" />
+            <Item :item="item" v-on:del-item="deleteItem"/>
         </div>
     </div>
 </template>
@@ -13,6 +13,11 @@ export default {
     props: ["items"],
     components: {
         Item
+    },
+    methods: {
+        deleteItem(id) {
+            this.$emit("del-item", id)
+        }
     }
 }
 </script>

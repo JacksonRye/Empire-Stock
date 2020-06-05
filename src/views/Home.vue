@@ -1,8 +1,7 @@
 <template>
   <main>
     <AddItem @add-item="addItem" />
-    <ItemList :items="items" />
-    <EditItem />
+    <ItemList :items="items" v-on:del-item="deleteItem" />
   </main>
 </template>
 
@@ -10,42 +9,61 @@
 // @ is an alias to /src
 import AddItem from "../components/AddItem.vue";
 import ItemList from "../components/ItemList.vue";
-import { v1 as uuid } from "uuid";
-import EditItem from '../components/EditItem.vue';
+import firebase from "firebase";
+
 export default {
   name: "Home",
   components: {
     AddItem,
-    ItemList,
-    EditItem
+    ItemList
   },
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          name: "Budweiser",
-          quantity: 20
-        },
-        {
-          id: 2,
-          name: "Heineken",
-          quantity: 200
-        }
-      ]
+      items: []
     };
   },
   methods: {
     addItem(newItem) {
-      const { name, quantity } = newItem;
-      const id = uuid();
-      const item = {
-        id,
-        name,
-        quantity
-      };
-      this.items = [...this.items,  item];
+      const db = firebase.firestore();
+      const ref = db.collection("stock").doc();
+
+      const id = ref.id + "";
+
+      newItem.id = id;
+
+      db.collection("stock")
+        .doc(id)
+        .set(newItem)
+        .then(docRef => console.log("Document written: ", docRef.id))
+        .catch(err => console.error(err));
+    },
+    deleteItem(id) {
+      const db = firebase.firestore();
+      db.collection("stock")
+        .doc(id)
+        .delete()
+        .then(() => {
+          console.log("Doc Deleted Successfully");
+          this.items = this.items.filter(item => item.id !== id)
+        })
+        .catch(err => console.error("Doc deletion failed", err));
     }
+  },
+  created() {
+    const db = firebase.firestore();
+
+    db.collection("stock")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          console.log(
+            `${doc.id} => ${doc.data().name}, ${doc.data().quantity}, ${
+              doc.data().id
+            }`
+          );
+          this.items.push(doc.data());
+        });
+      });
   }
 };
 </script>

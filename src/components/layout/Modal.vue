@@ -10,7 +10,7 @@
         <header class="modal-header" id="modalTitle">
           <slot name="header">
             This is the default tile!
-            <button type="button" class="btn-close" @click="close">x</button>
+            <button type="button" class="btn-close cancel" @click="close">x</button>
           </slot>
         </header>
 
@@ -23,7 +23,7 @@
             <button
               type="button"
               @click="close"
-              class="btn-green"
+              class="btn-close"
               aria-label="Close modal"
             >Close me!</button>
           </slot>
@@ -73,6 +73,7 @@ export default {
     overflow-x: auto;
     display: flex;
     flex-direction: column;
+    width: 70vw;
   }
 
   .modal-header,
@@ -104,7 +105,7 @@ export default {
     cursor: pointer;
     font-weight: bold;
     color: #4aae9b;
-    background: transparent;
+    background: grey;
   }
 
   .btn-green {
