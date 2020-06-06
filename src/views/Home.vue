@@ -1,7 +1,7 @@
 <template>
   <main>
     <AddItem @add-item="addItem" />
-    <ItemList :items="items" v-on:del-item="deleteItem" />
+    <ItemList :isStock="isStock" :items="items" v-on:del-item="deleteItem" />
   </main>
 </template>
 
@@ -19,7 +19,8 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: [],
+      isStock: true
     };
   },
   methods: {
