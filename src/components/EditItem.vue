@@ -40,11 +40,17 @@ export default {
       db.collection("stock")
         .doc(this.item.id)
         .set(this.item)
-        .then(() => console.log("Document Successfully written!"))
+        .then(() => {
+          this.cancel();
+          console.log("Document Successfully written!");
+        })
         .catch(err => console.error("Error writing document: ", err));
-      return
+      return;
     },
-    cancel() {}
+    cancel() {
+      this.amount = 0;
+      this.selected = null;
+    }
   }
 };
 </script>

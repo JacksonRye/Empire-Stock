@@ -1,22 +1,26 @@
-fayrouz - 56
-star radler - 40
-eagle - 32
-sminorff ice - 3
-hero - 165
-egg - 60
-fearless - 33
-don simon - 17
-don simon (can) - 17
-holandia - 2
-life - 82
-33 - 79
-mineral - 44
-budweiser - 43
-amstel malt - 42
-water - 148
-heineken - 48
-gulder - 33
-guiness - 11
-legend - 29
-chelsea - 7
-star - 24
+fayrouz - 0 - 200
+star radler - 0 - 300
+eagle - 0 - 400
+sminorff ice - 0 - 300
+hero - 0 - 300
+fearless - 0 - 300
+don simon - 0 - 1300
+don simon (can) - 0 - 500
+holandia - 0 - 1000
+life - 0 - 300
+33 - 0 - 300
+mineral - 0 - 150
+budweiser - 0 - 400
+budweiser (can) - 0 - 300
+amstel malt - 0 - 200
+water - 0 - 150
+heineken - 0 - 400
+gulder - 0 - 400
+guiness - 0 - 300
+legend - 0 - 400
+chelsea - 0 - 500
+star - 0 - 400
+bullet - 0 - 300
+squadron - 0 - 500
+carlo rossi - 0 - 3000
+action bitter - 0 - 500
