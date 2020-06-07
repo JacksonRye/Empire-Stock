@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <div class="quantity-control">
-      <p>Quantity: {{ item.quantity }}</p>
-      <select v-model="operation" name="transaction">
+      <p class="quantity">Quantity: {{ item.quantity }}</p>
+      <select class="quantity operation" v-model="operation" name="transaction">
         <option value="add">Add</option>
         <option value="subtract">Subtract</option>
       </select>
 
-      <input v-model.number="amount" type="number" id="amount" />
+      <input class="quantity amount" v-model.number="amount" type="number" id="amount" />
     </div>
 
     <div class="buttons">
-      <button @click="accept" class="accept">Accept</button>
+      <button @click="accept" class="add">Accept</button>
       <button @click="cancel" class="cancel">Cancel</button>
     </div>
   </div>
@@ -42,7 +42,8 @@ export default {
       if (this.operation === "subtract") {
         this.item.quantity -= this.amount;
       }
-      this.db.collection(this.venue)
+      this.db
+        .collection(this.venue)
         .doc(this.item.id)
         .set(this.item)
         .then(() => {
@@ -68,8 +69,10 @@ export default {
   .quantity-control {
     display: flex;
     margin: 2px;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    flex-wrap: wrap;
   }
   .buttons {
     display: flex;
@@ -93,5 +96,9 @@ export default {
   select {
     background: white;
     padding: 5px 0;
+  }
+
+  .quantity {
+    margin: 5px 0;
   }
 </style>

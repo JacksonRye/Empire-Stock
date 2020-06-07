@@ -33,7 +33,7 @@
   </transition>
 </template>
 
-<script>
+<script scoped>
 export default {
   name: "Modal",
 

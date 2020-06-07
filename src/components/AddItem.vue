@@ -4,7 +4,7 @@
     <input type="number" v-model.number="quantity" class="quantity" />
     <button @click="addItem" class="add">Add</button>
     <button @click="clearBox" class="cancel">X</button>
-    <input @change="openFile" :file="file" type="file" id="file-input" />
+    <input @change="openFile" :file="file" type="file" class="file-input" />
     <button @click="addFromFile" class="read-button">Read File</button>
   </div>
 </template>
@@ -96,26 +96,26 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .add-item {
     padding: 10px 5px;
     margin: 10px 5px;
-    background: transparent;
+    background: rgba(214, 214, 214, 0.808);
     display: flex;
     flex-direction: column;
   }
 
   .name,
   .quantity {
-    background: rgb(228, 225, 221);
-    margin: 2px 5px;
+    background: rgb(250, 250, 250);
+    width: 90%;
+    margin: 2px auto;
     padding: 12px 5px;
     flex: 0.7;
   }
 
   .cancel,
   .add {
-    margin: 2px;
     padding: 10px 10px;
     font-weight: 700;
   }
@@ -140,20 +140,6 @@ export default {
     color: green;
   }
 
-  .read-button {
-    background: blue;
-    padding: 10px 0;
-    margin: 5px 2px;
-    color: white;
-  }
+  
 
-  .read-button:hover {
-    background: white;
-    color: blue;
-  }
-
-  #file-input {
-    padding: 5px 0;
-    margin: 2px 0 0 2px;
-  }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ venue }}</h1>
+    <h1 class="venue">{{ venue }}</h1>
     <Search @search="search" />
     <div v-for="item in mutableItems" :key="item.id">
       <Item v-if="isStock" :item="item" @:del-item="deleteItem" />
@@ -14,7 +14,7 @@
     </div>
     <section class="total">
       <h1>Total</h1>
-      <p :totalSales="totalSales">{{ totalSales }}</p>
+      <p :totalSales="totalSales"> &#8358;{{ totalSales }}</p>
     </section>
   </div>
 </template>
@@ -57,15 +57,28 @@ export default {
         .reduce((a, b) => a + b);
     },
     search(query) {
-      this.mutableItems = this.items.filter(item =>
-        item.name.includes(query)
-      );
+      if (!query) {
+        this.resetSearch();
+      }
+      this.mutableItems = this.items.filter(item => item.name.includes(query));
       console.log(this.mutableItems);
       // this.resetSearch()
     },
     resetSearch() {
       this.mutableItems = this.items;
+
     }
   }
 };
 </script>
+
+<style scoped>
+  .venue {
+    text-transform: capitalize;
+  }
+
+  .total {
+    background: rgba(201, 200, 200, 0.288);
+    margin: 10px 5px;
+  }
+</style>

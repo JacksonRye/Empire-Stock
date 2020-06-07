@@ -2,8 +2,10 @@
   <div class="item" :class="{ warn : item.quantity < 20 }">
     <span class="name">{{ item.name }}</span>
     <span class="quantity">{{ item.quantity }}</span>
-    <button @click="editItem" class="accept edit">Edit</button>
-    <button @click="deleteItem" class="delete">X</button>
+    <button @click="editItem" class="accept edit">
+      <i class="fas fa-pen"></i>
+    </button>
+    <button @click="deleteItem" class="delete"><i class="fas fa-trash"></i></button>
     <Modal v-if="isModalVisible" @close="closeModal">
       <div slot="header">
         <h1>Edit Item</h1>
@@ -44,7 +46,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .item {
     background: #f4f4f4;
     color: black;

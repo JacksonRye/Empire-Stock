@@ -1,16 +1,26 @@
 <template>
   <div class="container">
-    <button @click="editItem" class="edit">Edit</button>
+    <span class="name">Name: {{ item.name }}</span>
+
     <div class="info">
-      <span class="name">Name: {{ item.name }}</span>
+      <button @click="editItem" class="edit">
+        <i class="fas fa-pen"></i>
+      </button>
 
-      <span class="quantity">Total: {{ item.quantity }}</span>
+      <div class="quantity">
+        <span class="quantity">Total: {{ item.quantity }}</span>
+        <span class="price">Price: &#8358;{{ item.price }}</span>
+      </div>
 
-      <span class="price">Price: {{ item.price }}</span>
+      <input v-model.number="remainingItems" @input="calculateCash" class="remaining" type="number" />
+
+      <span class="cash">
+        <p :cashAtHand="cashAtHand" class="cash">cash: &#8358;{{ cashAtHand }}</p>
+      </span>
+
+      <button @click="deleteItem" class="delete"><i class="fas fa-trash"></i></button>
     </div>
-    <input v-model.number="remainingItems" @input="calculateCash" class="remaining" type="number" />
-    <button @click="deleteItem" class="delete">X</button>
-    <p :cashAtHand="cashAtHand" class="cash">cash: {{ cashAtHand }}</p>
+
     <Modal v-if="isModalVisible" @close="closeModal">
       <h1 slot="header">{{ item.name }}</h1>
       <div slot="body">
@@ -67,27 +77,53 @@ export default {
 <style scoped>
   /* TODO: Style sales item */
   .container {
-    padding: 10px 0;
-    margin: 10px 5px;
-    background: rgb(163, 162, 162);
+    display: flex;
+    flex-direction: column;
+    background: rgba(231, 229, 225, 0.308);
+    margin: 5px 10px;
+    justify-content: center;
+  }
+
+  .info {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
   }
 
-  .remaining {
-    background: white;
-    margin: 0 0 0 5px;
-    padding: 5px 0;
+  .quantity {
+    display: flex;
+    flex-direction: column;
+    margin: 0 2px 0 0;
+    flex: 0.4;
+    padding: 2px;
+  }
+
+  .name,
+  .cash {
+    text-transform: capitalize;
+  }
+
+  .cash {
+    flex: 0.5;
+    text-align: start;
+    margin-left: 5px;
   }
 
   .edit {
+    background: blue;
     padding: 10px;
+    color: white;
   }
 
-  .info {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  .edit,
+  .delete {
+    flex: 0.1;
+  }
+
+  .remaining {
+    background: white;
+    padding: 10px;
+    flex: 0.1;
+    width: 40px;
   }
 </style>

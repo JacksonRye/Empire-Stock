@@ -80,4 +80,44 @@ export default {
     background: white;
     color: green;
   }
+
+  .name {
+    text-transform: capitalize;
+  }
+
+  .add,
+  .cancel,
+  .amount,
+  .operation {
+    width: 90%;
+    margin: 2px auto;
+  }
+
+  .add {
+    background: green;
+    color: white;
+  }
+
+  .cancel {
+    background: red;
+    color: white;
+  }
+
+  .read-button {
+    background: blue;
+    padding: 10px 0;
+    width: 90%;
+    margin: 5px auto;
+    color: white;
+  }
+
+  .file-input {
+    width: 90%;
+    margin: 5px auto;
+  }
+
+  .read-button:hover {
+    background: white;
+    color: blue;
+  }
 </style>

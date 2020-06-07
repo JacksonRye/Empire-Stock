@@ -1,6 +1,6 @@
 fayrouz - 0 - 200
 star radler - 0 - 300
-eagle - 0 - 400
+eagle - 0 - 350
 sminorff ice - 0 - 300
 hero - 0 - 300
 fearless - 0 - 300
@@ -15,11 +15,11 @@ budweiser (can) - 0 - 300
 amstel malt - 0 - 200
 water - 0 - 150
 heineken - 0 - 400
-gulder - 0 - 400
+gulder - 0 - 350
 guiness - 0 - 300
-legend - 0 - 400
+legend - 0 - 350
 chelsea - 0 - 500
-star - 0 - 400
+star - 0 - 350
 bullet - 0 - 300
 squadron - 0 - 500
 carlo rossi - 0 - 3000

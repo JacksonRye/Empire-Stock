@@ -7,8 +7,15 @@
       <!-- <a href="#">Snooker Total</a> -->
     </div>
     <div class="upload">
-      <input :file="file" @change="openFile" type="file" name="Select File" id="file" />
-      <button @click="upload" class="upload-button">Upload</button>
+      <input
+        :file="file"
+        @change="openFile"
+        class="file-input"
+        type="file"
+        name="Select File"
+        id="file"
+      />
+      <button @click="upload" class="read-button">Upload</button>
     </div>
     <section id="restuarant" class="resturant">
       <ItemList
@@ -69,9 +76,7 @@ export default {
     },
     uploadToDb(item) {
       for (const bar of this.bars) {
-        const ref = this.db.collection(bar).doc();
-
-        const id = ref.id + "";
+        const id = item.name;
 
         item.id = id;
 
@@ -170,19 +175,6 @@ export default {
     align-items: center;
     flex: 1;
     margin: 0 5px;
-  }
-
-  .upload-button {
-    background: rgb(117, 210, 30);
-    padding: 10px;
-    width: 100%;
-    margin: 10px 30px;
-    flex: 1;
-  }
-
-  .upload-button:hover {
-    background: white;
-    color: rgb(117, 210, 30);
   }
 
   .links {

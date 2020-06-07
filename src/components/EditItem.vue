@@ -1,18 +1,20 @@
 <template>
   <div class="container">
-    <h1>Name: {{item.name}}</h1>
+    <h1 class="name">Name: {{item.name}}</h1>
     <p>Quantity left: {{ item.quantity }}</p>
 
     <div class="quantity-control">
-      <select v-model="selected" name="Action">
+      <select class="operation" v-model="selected" name="Action">
         <option value="add">Add</option>
         <option value="subtract">Subtract</option>
       </select>
       <input v-model.number="amount" class="amount" type="number" />
     </div>
 
-    <button @click="saveTransaction" class="add">Accept</button>
-    <button @click="cancel" class="cancel">Cancel</button>
+    <button @click="saveTransaction" class="add">
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </button>
+    <button @click="cancel" class="cancel">X</button>
   </div>
 </template>
 
@@ -57,7 +59,7 @@ export default {
 
 <style scoped>
   .container {
-    background: grey;
+    background: rgba(112, 109, 109, 0.267);
     display: flex;
     flex-direction: column;
     padding: 5px 0;
@@ -66,19 +68,19 @@ export default {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-direction: column;
   }
 
   .amount {
     background: white;
-    margin: 10px 5px;
-  }
-
-  .amount {
+    margin: 10px 10px;
     flex: 0.1;
-    padding: 5px 0;
-    margin: 0 5px;
+    
   }
 
+  
+
+  
   select {
     padding: 5px 0;
   }
