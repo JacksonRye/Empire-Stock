@@ -1,0 +1,30 @@
+[debug] [2020-06-07T13:02:49.035Z] ----------------------------------------------------------------------
+[debug] [2020-06-07T13:02:49.038Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2020-06-07T13:02:49.038Z] CLI Version:   8.2.0
+[debug] [2020-06-07T13:02:49.038Z] Platform:      darwin
+[debug] [2020-06-07T13:02:49.038Z] Node Version:  v12.16.3
+[debug] [2020-06-07T13:02:49.040Z] Time:          Sun Jun 07 2020 14:02:49 GMT+0100 (West Africa Standard Time)
+[debug] [2020-06-07T13:02:49.040Z] ----------------------------------------------------------------------
+[debug] [2020-06-07T13:02:49.040Z] 
+[debug] [2020-06-07T13:02:49.053Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-06-07T13:02:49.054Z] > authorizing via signed-in user
+[debug] [2020-06-07T13:02:49.054Z] [iam] checking project empire-stock for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-06-07T13:02:49.058Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/empire-stock:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-06-07T13:02:51.520Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 07 Jun 2020 13:02:50 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1111","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-06-07T13:02:51.522Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/empire-stock  
+ 
+[debug] [2020-06-07T13:02:52.132Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 07 Jun 2020 13:02:52 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'empire-stock'...
+[info] 
+[info] i  deploying hosting
+[debug] [2020-06-07T13:02:52.138Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/empire-stock/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2020-06-07T13:02:54.590Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 07 Jun 2020 13:02:54 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting[empire-stock]: beginning deploy...
+[info] i  hosting[empire-stock]: found 31 files in dist
+[debug] [2020-06-07T13:02:55.673Z] [hosting] hash cache [ZGlzdA] stored for 31 files
+[debug] [2020-06-07T13:02:55.674Z] [hosting][hash queue][FINAL] {"max":1029,"min":25,"avg":65.48387096774194,"active":0,"complete":31,"success":31,"errored":0,"retried":0,"total":31,"elapsed":1058}
+[debug] [2020-06-07T13:02:55.674Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/empire-stock/versions/58499f5fbc9f767e:populateFiles  
+ <request body omitted>

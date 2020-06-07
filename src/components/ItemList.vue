@@ -14,7 +14,7 @@
     </div>
     <section class="total">
       <h1>Total</h1>
-      <p :totalSales="totalSales"> &#8358;{{ totalSales }}</p>
+      <p :totalSales="totalSales">&#8358;{{ totalSales }}</p>
     </section>
   </div>
 </template>
@@ -60,13 +60,16 @@ export default {
       if (!query) {
         this.resetSearch();
       }
-      this.mutableItems = this.items.filter(item => item.name.includes(query));
+      this.mutableItems = this.items.filter(item => {
+        const name = item.name.toLowerCase();
+        query = query.toLowerCase();
+        return name.includes(query);
+      });
       console.log(this.mutableItems);
       // this.resetSearch()
     },
     resetSearch() {
       this.mutableItems = this.items;
-
     }
   }
 };
