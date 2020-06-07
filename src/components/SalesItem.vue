@@ -1,21 +1,20 @@
 <template>
   <div class="container">
     <button @click="editItem" class="edit">Edit</button>
-    Name: {{ item.name }}
-    Total: {{ item.quantity }}
-    Price: {{ item.price }}
-    <input
-      v-model.number="remainingItems"
-      @input="calculateCash"
-      class="remaining"
-      type="number"
-    />
+    <div class="info">
+      <span class="name">Name: {{ item.name }}</span>
+
+      <span class="quantity">Total: {{ item.quantity }}</span>
+
+      <span class="price">Price: {{ item.price }}</span>
+    </div>
+    <input v-model.number="remainingItems" @input="calculateCash" class="remaining" type="number" />
     <button @click="deleteItem" class="delete">X</button>
     <p :cashAtHand="cashAtHand" class="cash">cash: {{ cashAtHand }}</p>
     <Modal v-if="isModalVisible" @close="closeModal">
       <h1 slot="header">{{ item.name }}</h1>
       <div slot="body">
-        <EditSalesItem :item="item" :venue="venue"/>
+        <EditSalesItem :item="item" :venue="venue" />
       </div>
     </Modal>
   </div>
@@ -84,5 +83,11 @@ export default {
 
   .edit {
     padding: 10px;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 </style>

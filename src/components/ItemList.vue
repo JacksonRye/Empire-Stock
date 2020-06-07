@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>{{ venue }}</h1>
-    <div v-for="item in items" :key="item.id">
+    <Search @search="search" />
+    <div v-for="item in mutableItems" :key="item.id">
       <Item v-if="isStock" :item="item" @:del-item="deleteItem" />
       <SalesItem
         @del-item="deleteItem"
@@ -21,17 +22,20 @@
 <script>
 import Item from "./Item.vue";
 import SalesItem from "./SalesItem.vue";
+import Search from "./layout/Search.vue";
 export default {
   name: "ItemList",
   props: ["items", "isStock", "isSales", "venue"],
   components: {
     Item,
-    SalesItem
+    SalesItem,
+    Search
   },
   data() {
     return {
       totalSales: 0,
-      sales: []
+      sales: [],
+      mutableItems: this.items
     };
   },
   methods: {
@@ -51,6 +55,16 @@ export default {
       this.totalSales = this.sales
         .map(sale => sale.cashAtHand)
         .reduce((a, b) => a + b);
+    },
+    search(query) {
+      this.mutableItems = this.items.filter(item =>
+        item.name.includes(query)
+      );
+      console.log(this.mutableItems);
+      // this.resetSearch()
+    },
+    resetSearch() {
+      this.mutableItems = this.items;
     }
   }
 };
