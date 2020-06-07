@@ -75,12 +75,15 @@ export default {
     background: white;
     margin: 10px 10px;
     flex: 0.1;
-    
   }
 
-  
+  .add,
+  .cancel,
+  .amount,
+  .operation {
+    padding: 15px;
+  }
 
-  
   select {
     padding: 5px 0;
   }

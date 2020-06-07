@@ -18,7 +18,9 @@
         <p :cashAtHand="cashAtHand" class="cash">cash: &#8358;{{ cashAtHand }}</p>
       </span>
 
-      <button @click="deleteItem" class="delete"><i class="fas fa-trash"></i></button>
+      <button @click="deleteItem" class="delete">
+        <i class="fas fa-trash"></i>
+      </button>
     </div>
 
     <Modal v-if="isModalVisible" @close="closeModal">
@@ -52,14 +54,13 @@ export default {
     calculateCash() {
       const sold = this.item.quantity - this.remainingItems;
       this.cashAtHand = this.item.price * sold;
-      //   console.log(cashAtHand);
 
       this.$emit("sale", {
         name: this.item.name,
         cashAtHand: this.cashAtHand,
-        id: this.item.id
+        id: this.item.id,
+        remaining: this.remainingItems
       });
-      //   return cashAtHand.toString();
     },
     deleteItem() {
       this.$emit("del-item", { id: this.item.id, venue: this.venue });
