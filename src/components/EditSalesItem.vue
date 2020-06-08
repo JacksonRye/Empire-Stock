@@ -83,7 +83,7 @@ export default {
   }
 
   button {
-    padding: 5px 25vw;
+    padding: 15px 25vw;
     margin: 2px 0;
   }
 

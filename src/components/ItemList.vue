@@ -23,7 +23,9 @@
         </div>
         <section class="total">
           <div class="update">
-            <button @click="updateFridge">update</button>
+            <button @click="update">
+              <i class="fas fa-sync"></i>
+            </button>
           </div>
           <div class="total-text">
             <h1>Total</h1>
@@ -77,10 +79,14 @@ export default {
         .map(sale => sale.cashAtHand)
         .reduce((a, b) => a + b);
     },
-    updateFridge() {},
+    update() {
+      const refs = Object.values(this.$refs);
+
+      refs.forEach(ref => ref[0].update());
+    },
     addKitchenItem(item) {
       console.log("I heard: ", item);
-      this.$emit("add-item", item)
+      this.$emit("add-item", item);
     },
     search(query) {
       if (!query) {

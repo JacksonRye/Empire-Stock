@@ -36,6 +36,7 @@
 <script>
 import Modal from "./layout/Modal.vue";
 import EditSalesItem from "./EditSalesItem.vue";
+import firebase from "firebase";
 export default {
   name: "SalesItem",
   props: ["item", "venue"],
@@ -45,10 +46,11 @@ export default {
   },
   data() {
     return {
-      remainingItems: 0,
+      remainingItems: this.item.quantity,
       cashAtHand: 0,
       isModalVisible: false,
-      isHidden: false
+      isHidden: false,
+      db: firebase.firestore()
     };
   },
   methods: {
@@ -77,6 +79,16 @@ export default {
     },
     showItem() {
       this.isHidden = false;
+    },
+    update() {
+      this.db
+        .collection(this.venue)
+        .doc(this.item.name)
+        .update({
+          quantity: this.remainingItems
+        })
+        .then(() => console.log(`${this.item.name} updated successfully`))
+        .catch(err => console.error(err));
     }
   }
 };

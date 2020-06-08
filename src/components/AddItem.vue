@@ -28,7 +28,11 @@ export default {
   methods: {
     addItem() {
       console.log("Add Item");
-      const item = { name: this.name, quantity: this.quantity };
+      const item = {
+        name: this.name,
+        quantity: this.quantity,
+        price: this.price
+      };
 
       this.notifyAddItemEvent(item);
 
