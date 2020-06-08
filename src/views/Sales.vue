@@ -1,28 +1,14 @@
 <template>
   <div class="container">
-    <div class="links">
-      <a href="#restuarant">Restuarant</a> |
-      <!-- <a href="#">Restuarant Total</a> -->
-      <a href="#snooker">Snooker</a>
-      <!-- <a href="#">Snooker Total</a> -->
-    </div>
-    <div class="upload">
-      <input
-        :file="file"
-        @change="openFile"
-        class="file-input"
-        type="file"
-        name="Select File"
-        id="file"
-      />
-      <button @click="upload" class="read-button">Upload</button>
-    </div>
+    <h1>Add to Bar</h1>
+    <AddItem @add-item="addItem" />
+
     <section id="restuarant" class="resturant">
       <ItemList
         @del-item="deleteItem"
         :venue="restuarant"
         :isSales="isSales"
-        :items="resturantItems"
+        :items="restuarantItems"
       />
     </section>
 
@@ -34,27 +20,43 @@
         :items="snookerBarItems"
       />
     </section>
+
+    <section class="kitchen">
+      <ItemList
+        :isKitchen="isKitchen"
+        :venue="kitchen"
+        :items="kitchenItems"
+        @del-item="deleteItem"
+        :isSales="isSales"
+        @add-item="addKitchenItem"
+      />
+    </section>
   </div>
 </template>
 
 <script>
 import ItemList from "../components/ItemList";
 import firebase from "firebase";
+import AddItem from "../components/AddItem";
 export default {
   name: "Sales",
   components: {
-    ItemList
+    ItemList,
+    AddItem
   },
   data() {
     return {
-      resturantItems: [],
+      restuarantItems: [],
       snookerBarItems: [],
+      kitchenItems: [],
       isSales: true,
       restuarant: "restuarant",
       snookerBar: "snooker",
+      kitchen: "kitchen",
       file: null,
       db: firebase.firestore(),
-      bars: ["snooker", "restuarant"]
+      bars: ["snooker", "restuarant"],
+      isKitchen: true
     };
   },
   methods: {
@@ -63,7 +65,7 @@ export default {
       const venue = item.venue.toLowerCase();
       const id = item.id;
       if (venue === this.resturant.toLowerCase()) {
-        this.resturantItems = this.resturantItems.filter(
+        this.restuarantItems = this.restuarantItems.filter(
           product => product.id !== id
         );
         return;
@@ -74,79 +76,39 @@ export default {
         );
       }
     },
-    uploadToDb(item) {
+    addItem(item) {
       for (const bar of this.bars) {
-        const id = item.name;
-
-        item.id = id;
-
         this.db
           .collection(bar)
-          .doc(id)
+          .doc(item.name)
           .set(item)
           .then(() => {
-            console.log(`Document written: ${id}`);
-          })
-          .catch(err => console.error(err));
+            console.log("Document written: ", item.name);
+            if (bar === this.snookerBar) {
+              this.snookerBarItems = [...this.snookerBarItems, item];
+            }
+            if (bar === this.restuarant) {
+              this.restuarantBarItems = [...this.restuarantItems, item];
+            }
+          });
       }
     },
-    upload() {
-      if (this.file !== null) {
-        this.allItems.forEach(item => {
-          // item.id = uuid();
-          this.uploadToDb(item);
-        });
-        return;
-      }
-      return;
-    },
-    openFile(e) {
-      this.file = e.target.files[0];
-
-      const reader = new FileReader();
-
-      reader.addEventListener("loadstart", () => {
-        console.log("File reading started");
-      });
-
-      reader.addEventListener("load", e => {
-        const text = e.target.result;
-
-        const items = text.split("\n");
-
-        this.allItems = items.map(item => {
-          let [name, quantity, price] = item.split("-");
-          name = name.trim();
-          quantity = +quantity.trim();
-          price = +price.trim();
-          return {
-            name,
-            quantity,
-            price
-          };
-        });
-
-        console.log(this.allItems);
-      });
-
-      reader.addEventListener("error", () =>
-        alert("Error : Failed to read file")
-      );
-
-      // file read progress
-      reader.addEventListener("progress", function(e) {
-        if (e.lengthComputable == true) {
-          var percent_read = Math.floor((e.loaded / e.total) * 100);
-          console.log(percent_read + "% read");
-        }
-      });
-
-      // read as text file
-      reader.readAsText(this.file);
+    addKitchenItem(item) {
+      const id = item.name;
+      item.id = id;
+      this.db
+        .collection(this.kitchen)
+        .doc(id)
+        .set(item)
+        .then(() => {
+          console.log("Document written successfully: ", item.name);
+          this.kitchenItems = [...this.kitchenItems, item];
+        })
+        .catch(err => console.error(err));
     }
   },
   created() {
-    for (const bar of this.bars) {
+    for (const bar of [...this.bars, this.kitchen]) {
       this.db
         .collection(bar)
         .get()
@@ -154,11 +116,14 @@ export default {
           querySnapshot.forEach(doc => {
             const data = doc.data();
             console.log(`${doc.id} => ${data.name}, ${data.price}`);
-            if (bar === "restuarant") {
-              this.resturantItems.push(data);
+            if (bar === this.restuarant) {
+              this.restuarantItems.push(data);
             }
-            if (bar === "snooker") {
+            if (bar === this.snookerBar) {
               this.snookerBarItems.push(data);
+            }
+            if (bar === this.kitchen) {
+              this.kitchenItems.push(data);
             }
           });
         });

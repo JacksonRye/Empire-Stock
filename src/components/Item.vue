@@ -1,11 +1,13 @@
 <template>
-  <div class="item" :class="{ warn : item.quantity < 20 }">
+  <div v-show="!isHidden" class="item" :class="{ warn : item.quantity < 20 }">
     <span class="name">{{ item.name }}</span>
     <span class="quantity">{{ item.quantity }}</span>
     <button @click="editItem" class="accept edit">
       <i class="fas fa-pen"></i>
     </button>
-    <button @click="deleteItem" class="delete"><i class="fas fa-trash"></i></button>
+    <button @click="deleteItem" class="delete">
+      <i class="fas fa-trash"></i>
+    </button>
     <Modal v-if="isModalVisible" @close="closeModal">
       <div slot="header">
         <h1>Edit Item</h1>
@@ -29,7 +31,8 @@ export default {
   },
   data() {
     return {
-      isModalVisible: false
+      isModalVisible: false,
+      isHidden: false
     };
   },
   methods: {
@@ -41,6 +44,12 @@ export default {
     },
     deleteItem() {
       this.$emit("del-item", this.item.id);
+    },
+    hideItem() {
+      this.isHidden = true;
+    },
+    showItem() {
+      this.isHidden = false;
     }
   }
 };

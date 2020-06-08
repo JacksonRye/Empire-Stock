@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-show="!isHidden" class="container">
     <span class="name">Name: {{ item.name }}</span>
 
     <div class="info">
@@ -47,7 +47,8 @@ export default {
     return {
       remainingItems: 0,
       cashAtHand: 0,
-      isModalVisible: false
+      isModalVisible: false,
+      isHidden: false
     };
   },
   methods: {
@@ -70,6 +71,12 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    hideItem() {
+      this.isHidden = true;
+    },
+    showItem() {
+      this.isHidden = false;
     }
   }
 };

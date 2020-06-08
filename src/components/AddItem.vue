@@ -1,7 +1,11 @@
 <template>
   <div class="add-item">
-    <input type="text" placeholder="Drink Name" v-model="name" class="name" />
-    <input type="number" v-model.number="quantity" class="quantity" />
+    <label for="name">Name</label>
+    <input id="name" type="text" placeholder="Item Name" v-model="name" class="name" />
+    <label for="quantity">Quantity</label>
+    <input id="quantity" type="number" v-model.number="quantity" class="quantity" />
+    <label for="price">Price</label>
+    <input id="price" type="number" v-model.number="price" class="quantity" />
     <button @click="addItem" class="add">Add</button>
     <button @click="clearBox" class="cancel">X</button>
     <input @change="openFile" :file="file" type="file" class="file-input" />
@@ -16,6 +20,7 @@ export default {
     return {
       name: "",
       quantity: 0,
+      price: 0,
       file: null,
       stockItems: []
     };
@@ -35,7 +40,6 @@ export default {
     },
     openFile(e) {
       this.file = e.target.files[0];
-      console.log(this.file);
 
       const reader = new FileReader();
 
@@ -43,32 +47,29 @@ export default {
         console.log("File reading started");
       });
 
-      // file reading finished successfully
       reader.addEventListener("load", e => {
-        // contents of file in variable
-        var text = e.target.result;
+        const text = e.target.result;
 
         const items = text.split("\n");
 
-        // console.log(items);
-
-        this.stockItems = items.map(item => {
-          let [name, quantity] = item.split("-");
+        this.allItems = items.map(item => {
+          let [name, quantity, price] = item.split("-");
           name = name.trim();
           quantity = +quantity.trim();
+          price = +price.trim();
           return {
             name,
-            quantity
+            quantity,
+            price
           };
         });
 
-        console.log(this.stockItems);
+        console.log(this.allItems);
       });
 
-      // file reading failed
-      reader.addEventListener("error", function() {
-        alert("Error : Failed to read file");
-      });
+      reader.addEventListener("error", () =>
+        alert("Error : Failed to read file")
+      );
 
       // file read progress
       reader.addEventListener("progress", function(e) {
@@ -139,7 +140,4 @@ export default {
     background: white;
     color: green;
   }
-
-  
-
 </style>

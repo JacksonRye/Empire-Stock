@@ -8,10 +8,12 @@
         class="accordion__button"
       >{{ venue || "Stock" }}</button>
       <div v-show="isExpanded" class="accordion__content">
+        <AddItem @add-item="addKitchenItem" v-if="isKitchen" />
         <Search @search="search" />
-        <div v-for="item in mutableItems" :key="item.id">
-          <Item v-if="isStock" :item="item" @:del-item="deleteItem" />
+        <div v-for="item in items" :key="item.id">
+          <Item :ref="item.name" v-if="isStock" :item="item" @:del-item="deleteItem" />
           <SalesItem
+            :ref="item.name"
             @del-item="deleteItem"
             :venue="venue"
             @sale="calculateCash"
@@ -37,19 +39,21 @@
 import Item from "./Item.vue";
 import SalesItem from "./SalesItem.vue";
 import Search from "./layout/Search.vue";
+import AddItem from "./AddItem";
 export default {
   name: "ItemList",
-  props: ["items", "isStock", "isSales", "venue"],
+  props: ["items", "isStock", "isSales", "venue", "isKitchen"],
   components: {
     Item,
     SalesItem,
-    Search
+    Search,
+    AddItem
   },
   data() {
     return {
       totalSales: 0,
       sales: [],
-      mutableItems: this.items,
+      // mutableItems: this.items,
       isExpanded: false
     };
   },
@@ -66,7 +70,7 @@ export default {
         this.sales.push(sale);
       } else {
         const currentSale = this.sales[saleIndex];
-        console.log(currentSale);
+        // console.log(currentSale);
         currentSale.cashAtHand = sale.cashAtHand;
       }
       this.totalSales = this.sales
@@ -74,20 +78,31 @@ export default {
         .reduce((a, b) => a + b);
     },
     updateFridge() {},
+    addKitchenItem(item) {
+      console.log("I heard: ", item);
+      this.$emit("add-item", item)
+    },
     search(query) {
       if (!query) {
         this.resetSearch();
       }
-      this.mutableItems = this.items.filter(item => {
+      this.items.forEach(item => {
         const name = item.name.toLowerCase();
         query = query.toLowerCase();
-        return name.includes(query);
+        if (!name.includes(query)) {
+          this.hideItem(item);
+        }
       });
-      console.log(this.mutableItems);
       // this.resetSearch()
     },
     resetSearch() {
-      this.mutableItems = this.items;
+      const refs = Object.values(this.$refs);
+
+      refs.forEach(ref => ref[0].showItem());
+    },
+    hideItem(item) {
+      let ref = item.name;
+      this.$refs[ref][0].hideItem();
     }
   }
 };
